@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubbreddit extends Migration
+class CreateUsersSubbreddits extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateSubbreddit extends Migration
     {
         Schema::create('subbreddits', function (Blueprint $table) {
             $table->increments('id');
-            $table->highlight_string('name');
+            $table->string('name');
             $table->text('description');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
