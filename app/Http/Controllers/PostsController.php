@@ -16,18 +16,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        return \App\Post::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -37,7 +29,12 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new \App\Post;
+        $post->user_id = $request->user_id;
+        $post->name = $request->name;
+        $post->description = $request->description;
+
+        return $post;
     }
 
     /**
@@ -48,7 +45,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
+        return \App\Post::with(['posts.comments.childComments','user'])->find($id);
     }
 
     /**
@@ -57,21 +54,14 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
-        //
+        $post = \App\post::find($id);
+        $post->user_id = $request->user_id;
+        $post->name = $request->name;
+        $post->description = $request->description;
+        $post->save();
     }
 
     /**
@@ -82,6 +72,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = \App\post::find($id);
+         $post->delete();
+         return $post;
     }
 }

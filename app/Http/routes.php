@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::resource('subbreddits', 'SubbredditsController');
 Route::resource('comments', 'CommentsController');
 Route::resource('posts', 'PostsController');
+Route::resource('users', 'UsersController');
 
 /*
 |--------------------------------------------------------------------------
