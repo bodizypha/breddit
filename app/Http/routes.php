@@ -15,10 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('subbreddits', 'SubbredditsController');
-Route::resource('comments', 'CommentsController');
-Route::resource('posts', 'PostsController');
-Route::resource('users', 'UsersController');
+Route::resource('subbreddits', 'SubbredditsController', [
+	'except' => ['edit', 'create']
+	]);
+Route::resource('comments', 'CommentsController', [
+	'except' => ['edit', 'create']
+	]);
+Route::resource('posts', 'PostsController', [
+	'except' => ['edit', 'create']
+	]);
+Route::resource('users', 'UsersController', [
+	'except' => ['edit', 'create']
+	]);
 
 /*
 |--------------------------------------------------------------------------
