@@ -31,6 +31,7 @@ class SubbredditsController extends Controller
         $subbreddit->user_id = $request->user_id;
         $subbreddit->name = $request->name;
         $subbreddit->description = $request->description;
+        $subbreddit->save();
 
         return $subbreddit;
     }
@@ -60,6 +61,8 @@ class SubbredditsController extends Controller
         $subbreddit->name = $request->name;
         $subbreddit->description = $request->description;
         $subbreddit->save();
+
+        return $subbreddit;
     }
 
     /**
