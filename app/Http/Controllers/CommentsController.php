@@ -19,8 +19,6 @@ class CommentsController extends Controller
         return \App\Comment::all();
     }
 
-   
-
     /**
      * Store a newly created resource in storage.
      *
@@ -30,7 +28,7 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $comment = new \App\Comment;
-        $comment->user_id = $request->user_id;
+        $comment->user_id = request->user_id;
         $comment->comment_id = $request->comment_id;
         $comment->post_id = $request->post_id;
         $comment->content = $request->comment_content;
@@ -47,10 +45,9 @@ class CommentsController extends Controller
      */
     public function show($id)
     {
-        return \App\comment::with(['posts.comments.childComments','user'])->find($id);
+        return \App\Comment::find($id);
     }
-
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -61,8 +58,10 @@ class CommentsController extends Controller
     public function update(Request $request, $id)
     {
         $comment = \App\Comment::find($id);
-        $comment->name = $request->name;
-        $comment->description = $request->description;
+        $comment->user_id = request->user_id;
+        $comment->comment_id = $request->comment_id;
+        $comment->post_id = $request->post_id;
+        $comment->content = $request->comment_content;
         $comment->save();
 
         return $comment;
@@ -76,8 +75,9 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        $comment = \App\Comment::find($id);
+         $comment = \App\Comment::find($id);
          $comment->delete();
          return $comment;
+
     }
 }

@@ -66,7 +66,6 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->content = $request->post_content;
         $post->subbreddit_id = $request->subbreddit_id;
-        $post->user_id = $request->user_id;
         $post->url = $request->url;
 
         $post->save();
