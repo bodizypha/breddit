@@ -11,13 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::resource('subbreddits', 'SubbredditsController', [
-	'except' => ['edit', 'create']
-	]);
 Route::resource('comments', 'CommentsController', [
 	'except' => ['edit', 'create']
 	]);
@@ -41,11 +35,19 @@ Route::resource('users', 'UsersController', [
 
 Route::group(['middleware' => ['web']], function () {
 
-    //
+	Route::get('/', function () {
+    return view('welcome');
+});
+	Route::resource('subbreddits', 'SubbredditsController', [
+	'only' => ['index', 'show']
+	]);
 });
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
+
+    Route::resource('subreddits', 'SubbredditsController', ['except' => ['create', 'edit']
+    	]);
 });
