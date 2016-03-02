@@ -57,7 +57,7 @@ class SubbredditsController extends Controller
     public function update(Request $request, $id)
     {
         $subbreddit = \App\Subbreddit::find($id);
-        $subbreddit->user_id = request->user_id;
+        $subbreddit->user_id = $request->user_id;
         $subbreddit->name = $request->name;
         $subbreddit->description = $request->description;
         $subbreddit->save();
