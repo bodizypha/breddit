@@ -37,6 +37,8 @@ Route::resource('users', 'UsersController', [
 |
 */
 
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
 Route::group(['middleware' => ['web']], function () {
 
 });
