@@ -33,7 +33,7 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->content = $request->post_content;
         $post->subbreddit_id = $request->subbreddit_id;
-        $post->user_id = $request->user_id;
+        $post->user_id = \App::user()->id;
         $post->url = $request->url;
 
         $post->save();
@@ -65,7 +65,6 @@ class PostsController extends Controller
         $post = \App\Post::find($id);
         $post->title = $request->title;
         $post->content = $request->post_content;
-        $post->subbreddit_id = $request->subbreddit_id;
         $post->url = $request->url;
 
         $post->save();

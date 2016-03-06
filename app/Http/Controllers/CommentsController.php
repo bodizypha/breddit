@@ -28,7 +28,7 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $comment = new \App\Comment;
-        $comment->user_id = $request->user_id;
+        $comment->user_id = \Auth::user->$id;
         $comment->comment_id = $request->comment_id;
         $comment->post_id = $request->post_id;
         $comment->content = $request->comment_content;
@@ -58,9 +58,6 @@ class CommentsController extends Controller
     public function update(Request $request, $id)
     {
         $comment = \App\Comment::find($id);
-        $comment->user_id = $request->user_id;
-        $comment->comment_id = $request->comment_id;
-        $comment->post_id = $request->post_id;
         $comment->content = $request->comment_content;
         $comment->save();
 

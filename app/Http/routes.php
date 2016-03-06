@@ -13,18 +13,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-	Route::resource('subbreddits', 'SubbredditsController', [
-	'except' => ['edit', 'create']
-	]);
-Route::resource('comments', 'CommentsController', [
-	'except' => ['edit', 'create']
-	]);
-Route::resource('posts', 'PostsController', [
-	'except' => ['edit', 'create']
-	]);
-Route::resource('users', 'UsersController', [
-	'except' => ['edit', 'create']
-	]);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,13 +28,33 @@ Route::resource('users', 'UsersController', [
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
-Route::group(['middleware' => ['web']], function () {
-
-});
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
+
+    Route::resource('subbreddits', 'SubbredditsController', [
+		'except' => ['edit', 'create']
+	]);
+
+	Route::resource('comments', 'CommentsController', [
+		'except' => ['edit', 'create']
+	]);
+
+	Route::resource('posts', 'PostsController', [
+		'except' => ['edit', 'create']
+	]);
+
+	Route::resource('users', 'UsersController', [
+		'except' => ['edit', 'create']
+	]);
+
+	Route::group(['middleware' => 'auth'], function () {
+    	Route::resource('subbreddits', 'SubbredditsController', [
+			'only' => ['store', 'update', 'destroy']
+		]);
+    });
+
 
  });
