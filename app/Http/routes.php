@@ -54,6 +54,12 @@ Route::group(['middleware' => 'web'], function () {
     	Route::resource('subbreddits', 'SubbredditsController', [
 			'only' => ['store', 'update', 'destroy']
 		]);
+		Route::resource('comments', 'CommentsController', [
+			'only' => ['store', 'update', 'destroy']
+		]);
+		Route::resource('posts', 'PostsController', [
+			'only' => ['store', 'update', 'destroy']
+		]);
     });
 
 
