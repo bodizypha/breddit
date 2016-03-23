@@ -1,7 +1,14 @@
-var posts = new postsCollection();
+'use strict';
 
-posts.fetch();
-	success: function() 
-	var postsListView = new PostsListView ({collection: posts});
-	postsListView.render();
-	$('#content').html(postsListView.el);
+$.ajax('/subbreddits', {
+	type: 'GET',
+	success: function(subbreddits) {
+		var string = "";
+		_.each(subbreddits, function(subbreddit) {
+		  console.log(subbreddit);
+		  string += subbreddit.name;
+		  string += '';
+			});
+		$('#content').text(string);
+		}
+	});
