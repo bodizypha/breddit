@@ -21,7 +21,7 @@
     <script>
 'use strict';
 
-// $(document).('ready', function() {
+$(document).on('ready', function() {
 
 $.ajaxSetup({
     headers: {
@@ -50,7 +50,7 @@ var PostsCollection = Backbone.Collection.extend({
 });
 
 var SubbredditsCollection = Backbone.Collection.extend({
-    url: '/api/subbreddits/',
+    url: 'subbreddits/',
     model: SubbredditModel
 });
 
@@ -81,7 +81,7 @@ var HomeView = Backbone.View.extend({
         var subbreddits = new SubbredditsCollection();
         subbreddits.fetch();
         var subbredditsListView = new SubbredditsListView({ collection: subbreddits});
-        that.$el.find('#all-subbreddits').html(subbredditsListView.el);
+        this.$el.find('#all-subbreddits').html(subbredditsListView.render().el);
 
         return this;
     }
@@ -91,12 +91,12 @@ var SubbredditsListView = Backbone.View.extend({
     el: '<ul></ul>',
 
     template: _.template('\
-        <% subbreddits.each(function(subbreddt) { %>\
+        <% subbreddits.each(function(subbreddit) { %>\
             <li><a href="#"><%= subbreddit.get("name") %></a></li>\
         <% }) %>\
     '),
 
-    intialize: function() {
+    initialize: function() {
         this.listenTo(this.collection, 'update', this.render);
     },
 
@@ -107,7 +107,8 @@ var SubbredditsListView = Backbone.View.extend({
 })
 
 var homeView = new HomeView();
-$('#content').html(homeView.render.el);
+$('#content').html(homeView.render().el);
+});
 
     </script>
     
