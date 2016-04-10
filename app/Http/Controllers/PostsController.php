@@ -16,10 +16,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return \App\Post::all();
+        return \App\Post::with('subbreddit')->orderBy('id', 'desc')->get();
     }
-
-    
 
     /**
      * Store a newly created resource in storage.
@@ -31,15 +29,14 @@ class PostsController extends Controller
     {
         $post = new \App\Post;
         $post->title = $request->title;
-        $post->content = $request->post_content;
+        $post->post_content = $request->post_content;
         $post->subbreddit_id = $request->subbreddit_id;
-        $post->user_id = \App::user()->id;
+        $post->user_id = \Auth::user()->id;
         $post->url = $request->url;
 
         $post->save();
 
         return $post;
-
     }
 
     /**
@@ -53,24 +50,28 @@ class PostsController extends Controller
         return \App\Post::find($id);
     }
 
+
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
     public function update(Request $request, $id)
     {
         $post = \App\Post::find($id);
-        $post->title = $request->title;
-        $post->content = $request->post_content;
-        $post->url = $request->url;
+        if ($post->user_id == \Auth::user()->id) {
+            $post->title = $request->title;
+            $post->post_content = $request->post_content;
+            $post->url = $request->url;
 
-        $post->save();
+            $post->save();
+        } else {
+            return response("Unauthorized", 403);
+        }
 
         return $post;
-
     }
 
     /**
@@ -81,8 +82,12 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        $post = \App\post::find($id);
-        $post->delete();
-         return $post;
+        $post = \App\Post::find($id);
+        if ($post->user_id == \Auth::user()->id) {
+            $post->delete();
+        } else {
+            return response("Unauthorized", 403);
+        }
+        return $post;
     }
 }

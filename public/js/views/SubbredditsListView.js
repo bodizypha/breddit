@@ -11,14 +11,19 @@ var SubbredditsListView = Backbone.View.extend({
             'click a': function(e) {
                 e.preventDefault();
                 var subbredditId = $(e.target).data('id');
+                var SubbredditModel = require('../models/SubbredditModel.js');
                 var subbreddit = new SubbredditModel({id: subbredditId});
-                subbreddit.fetch();
-                var postsListView = PostsListView({
-                    collection: subbreddit.get('posts')
+                subbreddit.fetch({
+                    success: function() {
+                        var PostsListView = require('./PostsListView.js');
+                        var postsListView = PostsListView({
+                            collection: subbreddit.get('posts')
+                        });
+                        $('#posts').html(postsListView.render().el);
+                    }
+                
                 });
-                $('#posts').html(postsListView.render().el);
             }
-
         },
 
         initialize: function() {

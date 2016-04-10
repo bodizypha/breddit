@@ -28,10 +28,10 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $comment = new \App\Comment;
-        $comment->user_id = \Auth::user->$id;
+        $comment->user_id = \Auth::user()->$id;
         $comment->comment_id = $request->comment_id;
         $comment->post_id = $request->post_id;
-        $comment->content = $request->comment_content;
+        $comment->comment_content = $request->comment_content;
         $comment->save();
 
         return $comment;
@@ -47,7 +47,7 @@ class CommentsController extends Controller
     {
         return \App\Comment::find($id);
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -58,8 +58,12 @@ class CommentsController extends Controller
     public function update(Request $request, $id)
     {
         $comment = \App\Comment::find($id);
-        $comment->content = $request->comment_content;
-        $comment->save();
+        if ($comment->user_id == \Auth::user()->id) {
+            $comment->comment_content = $request->comment_content;
+            $comment->save();
+        } else {
+            return response("Unauthorized", 403);
+        }
 
         return $comment;
     }
@@ -72,9 +76,12 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-         $comment = \App\Comment::find($id);
-         $comment->delete();
-         return $comment;
-
+        $comment = \App\Comment::find($id);
+        if ($comment->user_id == \Auth::user()->id) {
+            $comment->delete();
+        } else {
+            return response("Unauthorized", 403);
+        }
+        return $comment;
     }
 }

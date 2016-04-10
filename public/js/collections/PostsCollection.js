@@ -1,6 +1,8 @@
+var PostModel = require('../models/PostModel.js');
+
 var PostsCollection = Backbone.Collection.extend({
     url: '/posts/',
     model: PostModel
 });
 
-module.expors = PostsCollection;
+module.exports = PostsCollection;

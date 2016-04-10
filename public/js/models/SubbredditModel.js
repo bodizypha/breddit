@@ -4,6 +4,7 @@ var SubbredditModel = Backbone.Model.extend({
 
     parse: function(response) {
         if (response.posts) {
+            var PostsCollection = require('../collections/PostsCollection.js');
             response.posts - new PostsCollection(response.posts);
         }
         return response;
