@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>NonStopBonging</title>
+    <title>Laravel</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -41,7 +40,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    NonStopBonging
+                    Laravel
                 </a>
             </div>
 
@@ -72,12 +71,15 @@
             </div>
         </div>
     </nav>
-
+    <div id="content"></div>
     @yield('content')
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.2/backbone-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
