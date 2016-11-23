@@ -1,27 +1,29 @@
+var Backbone = require('backbone');
+var _ = require('underscore');
+
 var SubbredditsListView = Backbone.View.extend({
         el: '<ul></ul>',
 
         template: _.template('\
             <% subbreddits.each(function(subbreddit) { %>\
-                <li><a data-id="<%=subbreddit.id %>" href="#"><%= subbreddit.get("name") %></a></li>\
+                <li><a data-id="<%= subbreddit.id %>" href="#"><%= subbreddit.get("name") %></a></li>\
             <% }) %>\
         '),
 
         events: {
-            'click a': function(e) {
-                e.preventDefault();
-                var subbredditId = $(e.target).data('id');
-                var SubbredditModel = require('../models/SubbredditModel.js');
+            'click a': function(event) {
+                event.preventDefault();
+                var subbredditId = $(event.target).data('id');
+                var SubbredditModel = require('../models/SubbredditModel.js')
                 var subbreddit = new SubbredditModel({id: subbredditId});
+                var PostsListView = require('./PostsListView.js');
                 subbreddit.fetch({
                     success: function() {
-                        var PostsListView = require('./PostsListView.js');
-                        var postsListView = PostsListView({
+                        var postsListView = new PostsListView({ 
                             collection: subbreddit.get('posts')
                         });
                         $('#posts').html(postsListView.render().el);
                     }
-                
                 });
             }
         },

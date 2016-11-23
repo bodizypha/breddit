@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'timezone' => 'CST',
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -155,12 +155,10 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        
         'Spatie\Tail\TailServiceProvider',
-        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
     ],
-
 
     /*
     |--------------------------------------------------------------------------

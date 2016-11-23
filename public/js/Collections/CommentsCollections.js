@@ -1,8 +1,8 @@
-var CommentModel = require('CommentModel.js');
+var Backbone = require('backbone');
 
 var CommentsCollection = Backbone.Collection.extend({
-    url: '/comments/',
-    model: CommentModel
-});
+        url: '/comments/',
+        model: CommentModel
+    });
 
-module.exports = CommentsCollection;
+moduel.exports = CommentsCollection;

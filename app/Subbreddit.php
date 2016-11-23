@@ -6,25 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subbreddit extends Model
 {
-    /**
-     * Get the user that owns the subbreddit.
+    /** 
+     * Get the user of the subbreddit.
      */
     public function user()
     {
         return $this->belongsTo('App\User');
-}
-/**
-     * Get the posts of the subbreddit
+    }
+    
+    /** 
+     * Get the post for the subbreddit.
      */
     public function posts()
     {
         return $this->hasMany('App\Post');
-}
-/**
-     * Get the subscribed users of the subbreddit
+    }
+    
+      /** 
+     * Get the subscribed users of the subbreddit.
      */
-    public function subscribedUsers()
+    public function subsrcibedUsers()
     {
-        return $this->belongsToMany('App\User')->withTimestamps();
-}
+        return $this->belongsToMany('App\User');
+    }
 }

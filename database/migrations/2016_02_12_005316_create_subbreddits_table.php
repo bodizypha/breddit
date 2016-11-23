@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersSubbreddits extends Migration
+class CreateSubbredditsTable extends Migration
 {
     /**
      * Run the migrations.

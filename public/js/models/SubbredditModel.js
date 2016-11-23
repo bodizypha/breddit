@@ -1,14 +1,16 @@
-var SubbredditModel = Backbone.Model.extend({
-    urlRoot: '/subbreddits/',
-    idAttribute: 'id',
+var Backbone = require('backbone');
 
-    parse: function(response) {
-        if (response.posts) {
-            var PostsCollection = require('../collections/PostsCollection.js');
-            response.posts - new PostsCollection(response.posts);
+    var SubbredditModel = Backbone.Model.extend({
+        urlRoot: 'subbreddits/',
+        idAttribute: 'id',
+
+        parse: function(response) {
+            if (response.posts) {
+        var PostsCollection = require('../collections/PostsCollection.js');
+                response.posts = new PostsCollection(response.posts);
+            }
+            return response;
         }
-        return response;
-    }
-});
+    });
 
 module.exports = SubbredditModel;

@@ -20,9 +20,8 @@ class SubbredditsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Show the form for creating a new resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -32,7 +31,7 @@ class SubbredditsController extends Controller
         $subbreddit->name = $request->name;
         $subbreddit->description = $request->description;
         $subbreddit->save();
-
+        
         return $subbreddit;
     }
 
@@ -44,30 +43,23 @@ class SubbredditsController extends Controller
      */
     public function show($id)
     {
-        return \App\Subbreddit::with([
-            'posts.comments.childComments',
-            'user'
-        ])->find($id);
+        return \App\Subbreddit::with(['posts.comments.parentComment','user'])->find($id);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Show the form for editing the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
         $subbreddit = \App\Subbreddit::find($id);
-        if ($subbreddit->user_id == \Auth::user()->id) {
-            $subbreddit->name = $request->name;
-            $subbreddit->description = $request->description;
-            $subbreddit->save();
-        } else {
-            return response("Unauthorized", 403);
-        }
-
+        $subbreddit->name = $request->name;
+        $subbreddit->description = $request->description;
+        $subbreddit->save();
+        
         return $subbreddit;
     }
 
@@ -80,11 +72,8 @@ class SubbredditsController extends Controller
     public function destroy($id)
     {
         $subbreddit = \App\Subbreddit::find($id);
-        if ($subbreddit->user_id == \Auth::user()->id) {
-            $subbreddit->delete();
-        } else {
-            return response("Unauthorized", 403);
-        }
+        $subbreddit->delete();
         return $subbreddit;
+        
     }
 }
